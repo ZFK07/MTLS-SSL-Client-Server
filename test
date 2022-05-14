@@ -1,0 +1,13 @@
+
+pkcs12 -export -in C:\SSLCodeCertificate\SSLCodeCertificate\ClientCertificate\gpapi-ds-dev.pem -inkey C:\SSLCodeCertificate\SSLCodeCertificate\Privatekey\gpapi-ds-dev.key -out C:\SSLCodeCertificate\SSLCodeCertificate\client-cert\client-cert.p12
+
+
+keytool -import -file C:\SSLCodeCertificate\SSLCodeCertificate\servercertifcate\cachain.pem -alias CAserver -keystore C:\SSLCodeCertificate\SSLCodeCertificate\servercertifcate\server.p12
+
+
+
+keytool -importkeystore -srckeystore C:\SSLCodeCertificate\client-cert\client-cert.p12 -destkeystore C:\SSLCodeCertificate\client-cert\KEYSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass keystorePassword -deststorepass newKeystorePassword -destkeypass newKeystorePassword
+
+[Yesterday 8:48 PM] Akash D Kshirsagar
+keytool -importkeystore -srckeystore C:\SSLCodeCertificate\client-cert\server.p12 -destkeystore C:\SSLCodeCertificate\client-cert\TRUSTSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass keystorePassword -deststorepass newKeystorePassword -srcalias CAserver -destalias CAserver
+
