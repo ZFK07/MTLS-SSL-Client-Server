@@ -61,9 +61,9 @@ openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365
 openssl req -newkey rsa:2048 -nodes -keyout serverprivatekey.pem -x509 -days 365 -out serverpubliccert.pem
 ```
 
-In the process it asks for multiple things for the creation of certification:
+In the process, it asks for multiple things for the creation of certification:
 
-```
+```bash
 Country Name (2 letter code) [AU]:
 State or Province Name (full name) [Some-State]:
 Locality Name (eg, city) []:
@@ -77,7 +77,6 @@ Email Address []:
 
 Step 2. Combine the private key and public certificate into `PCKS12(P12)` format for client and server respectively.
 
-```
 ```bash
 openssl pkcs12 -inkey clientprivatekey.pem -in clientpubliccert.pem -export -out client-certificate.p12
 ```
@@ -88,7 +87,7 @@ openssl pkcs12 -inkey server-key.pem -in server-certificate.pem -export -out ser
 
 It will ask for the password for `p12` format which is basically for integrity check enter the password:
 
-```
+```bash
 Enter Export Password:
 Verifying - Enter Export Password:
 ```
@@ -98,8 +97,6 @@ Verifying - Enter Export Password:
 Step 3. Place `client-certificate.p12` and `server-certificate.p12` into `keystore` and `trustStore` location.
 
 ![client-server](img/client-server.jpg)
-
-
 
 Step 4. Make Keystorere and truststore for client:
 
@@ -123,7 +120,7 @@ keytool -importkeystore -srckeystore client-certificate.p12 -destkeystore SERVER
 
 
 
-Step 4. Make a Keystore and truststore for SERVER:
+Step 5. Make a Keystore and truststore for SERVER:
 
 Keystore for server
 
