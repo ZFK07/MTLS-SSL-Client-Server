@@ -41,7 +41,7 @@ The standard SSL Handshake:
 
 ---
 
-# 👀️ DEMO For SIMPLE SSL/TSL/MTSL Client, Server. . 👀️
+# 👀️ DEMO FOR SIMPLE SSL/TSL/MTSL Client, Server. . 👀️
 
 ---
 
@@ -49,25 +49,21 @@ The standard SSL Handshake:
 
 Step 1. Create a private key and public certificate for the client & server by OpenSSL tool.
 
+###### **CLIENT:**
+
 ```bash
 openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365 -out clientpubliccert.pem
 ```
 
-```bash
-openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365 -out clientpubliccert.pem
-
-```
+**SERVER:**
 
 ```bash
 openssl req -newkey rsa:2048 -nodes -keyout serverprivatekey.pem -x509 -days 365 -out serverpubliccert.pem
 ```
 
-In the process it asks for multiple things for creation of certification:
+In the process it asks for multiple things for the creation of certification:
 
-* ```
-
-  ```
-
+```
 Country Name (2 letter code) [AU]:
 State or Province Name (full name) [Some-State]:
 Locality Name (eg, city) []:
@@ -75,6 +71,7 @@ Organization Name (eg, company) [Internet Widgits Pty Ltd]:
 Organizational Unit Name (eg, section) []:
 Common Name (e.g. server FQDN or YOUR name) []:
 Email Address []:
+```
 
 ```
 * Step 2. Combine the private key and public certificate into `PCKS12(P12)` format for client and server respectively.
