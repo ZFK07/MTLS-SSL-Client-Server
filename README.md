@@ -5,8 +5,6 @@
 * Public key is used to encrypt information.
 * Private key is used to decrypt information.
 
-
-
 ### 2. What is the difference between Digital Signature and Encryption?
 
 * When encrypting, you(client) use their public key to write a message, and they(server) use their private key to decrypt
@@ -14,14 +12,10 @@
 * When signing, you(client) use your own private key to write the message’s signature, and they(server) use your public key
   to verify if the message is yours.
 
-
-
 ### 3. What is the difference between Keystore and Truststore?
 
 * A Keystore has certs and keys in it and defines what is going to be presented to the other end of a connection.
 * A truststore has just certs in it and defines what certs that the other end will send are to be trusted.
-
-
 
 ### 4. What is the standard handshake for SSL/TSL Process?
 
@@ -45,24 +39,24 @@ The standard SSL Handshake:
 5. Encryption with Session Key.
    * Both client and server exchange messages to inform them that future messages will be encrypted.
 
+---
+
+# 👀️ DEMO For SIMPLE SSL/TSL/MTSL Client, Server. . 👀️
 
 ---
 
 
 
+Step 1. Create a private key and public certificate for the client & server by OpenSSL tool.
 
-##### This simple demo, it demonstrates how to start a very simple SSL/TSL Client & server.
+```bash
+openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365 -out clientpubliccert.pem
+```
 
-* Step 1. Create a private key and public certificate for the client & server by OpenSSL tool.
+```bash
+openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365 -out clientpubliccert.pem
 
-  ```bash
-  openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365 -out clientpubliccert.pem
-  ```
-
-  ```bash
-  openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365 -out clientpubliccert.pem
-
-  ```
+```
 
 ```bash
 openssl req -newkey rsa:2048 -nodes -keyout serverprivatekey.pem -x509 -days 365 -out serverpubliccert.pem
