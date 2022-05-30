@@ -1,67 +1,121 @@
-#### Simple Java SSL/TSL Socket Server 
+#### Simple Java SSL/TSL Socket Server
 
 ##### 1. What is the role of public key and private key
 
-* Public key is used to encrypt information. 
-* Private key is used to decrypt information. 
+* Public key is used to encrypt information.
+* Private key is used to decrypt information.
 
 ##### 2. What is the difference between digital signature and encryption
 
-* When encrypting, you(client) use their public key to write message, and they(server) use their private key to decrypt to read it. 
-* When signing, you(client) use your own private key to write message’s signature, and they(server) use your public key to verify if the message is yours. 
+* When encrypting, you(client) use their public key to write message, and they(server) use their private key to decrypt
+  to read it.
+* When signing, you(client) use your own private key to write message’s signature, and they(server) use your public key
+  to verify if the message is yours.
 
 ##### 3. What is the difference between keystore and truststore
 
 * A keystore has certs and keys in it and defines what is going to be presented to the other end of a connection.
-* A truststore has just certs in it and defines what certs that the other end will send are to be trusted. 
+* A truststore has just certs in it and defines what certs that the other end will send are to be trusted.
 
 ##### 4. The standard handshake for SSL/TSL
 
 he standard SSL Handshake
 
-1. Client Hello (Information that the server needs to communicate with the client using SSL.)  
-   * SSL version Number 
-   * Cipher setting (Compression Method) 
-   * Session-specific Data 
-2. Server Hello  
-   * Server picks a cipher and compression that both client and server support and tells the client about its choice, as well as some other things like a session id. 
-   * Server presents its certificate ( This is what client needs to validate as being signed by a trusted CA.) 
-   * Server presents a list of certificate authority DNs that client certs may be signed by. 
-3. Client response 
-   * Client continues the key exchange protocol necessary to set up a TLS session. 
-   * Cclient presents a certificate that was signed by one of the CAs and encrypts with the server’s public key.  
-   * Send the pre-master (based on cipher) encrypted by Server’s public key to server. 
-4. Server accepts the cert presented by client. 
-   * Server uses its private key to decrypt the pre-master secret. Both client and server perform steps to generate the master secret with the agreed cipher. 
-5. Encryption with Session Key.  
-   * Both client and server exchange messages to inform that future messages will be encrypted. 
+1. Client Hello (Information that the server needs to communicate with the client using SSL.)
+    * SSL version Number
+    * Cipher setting (Compression Method)
+    * Session-specific Data
+2. Server Hello
+    * Server picks a cipher and compression that both client and server support and tells the client about its choice,
+      as well as some other things like a session id.
+    * Server presents its certificate ( This is what client needs to validate as being signed by a trusted CA.)
+    * Server presents a list of certificate authority DNs that client certs may be signed by.
+3. Client response
+    * Client continues the key exchange protocol necessary to set up a TLS session.
+    * Cclient presents a certificate that was signed by one of the CAs and encrypts with the server’s public key.
+    * Send the pre-master (based on cipher) encrypted by Server’s public key to server.
+4. Server accepts the cert presented by client.
+    * Server uses its private key to decrypt the pre-master secret. Both client and server perform steps to generate the
+      master secret with the agreed cipher.
+5. Encryption with Session Key.
+    * Both client and server exchange messages to inform that future messages will be encrypted.
 
-##### 5.In this simple demo, it demonstrates how to start a very simple SSL/TSL Client & server. 
+##### 5.In this simple demo, it demonstrates how to start a very simple SSL/TSL Client & server.
 
 * Step 1. Create a private key and public certificate for client & server by openssl tool.
 
 ```bash
-openssl req -newkey rsa:2048 -nodes -keyout client-key.pem -x509 -days 365 -out client-certificate.pem
+openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365 -out clientpubliccert.pem
 ```
 
 ```bash
-openssl req -newkey rsa:2048 -nodes -keyout server-key.pem -x509 -days 365 -out server-certificate.pem
+openssl req -newkey rsa:2048 -nodes -keyout serverprivatekey.pem -x509 -days 365 -out serverpubliccert.pem
 ```
 
-* Step 2. Combine the private key and public certificate into `PCKS12(P12)` format for client and server respectively. 
+In the process it asks for multiple things for creation of certification:
+
+* ```
+     Country Name (2 letter code) [AU]:
+     State or Province Name (full name) [Some-State]:
+     Locality Name (eg, city) []:
+     Organization Name (eg, company) [Internet Widgits Pty Ltd]:
+     Organizational Unit Name (eg, section) []:
+     Common Name (e.g. server FQDN or YOUR name) []:
+     Email Address []:
+    ```
+* Step 2. Combine the private key and public certificate into `PCKS12(P12)` format for client and server respectively.
 
 ```bash
-openssl pkcs12 -inkey client-key.pem -in client-certificate.pem -export -out client-certificate.p12
+openssl pkcs12 -inkey clientprivatekey.pem -in clientpubliccert.pem -export -out client-certificate.p12
 ```
 
 ```bash
 openssl pkcs12 -inkey server-key.pem -in server-certificate.pem -export -out server-certificate.p12
 ```
 
+*
+    * It will ask for the password for `p12` format which is bascially for integratity:
+
+ ```
+Enter Export Password:
+Verifying - Enter Export Password:
+```
+
+
 * Step 3. Place `client-certificate.p12` and `server-certificate.p12` into `keystore` and `trustStore` location.
 
   ![client-server](img/client-server.jpg)
 
-##### 6. If everything went well, you will see this:
+* Step 4. Make a keystore and truststore for client:
 
-![result](img/result.jpg)
+Keystore for client
+```bash
+keytool -importkeystore -srckeystore client-certificate.p12 -destkeystore CLIENTKEYSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass p12Password -deststorepass keystorePassword -destkeypass confirmKeyStorePassword
+```
+TrustStore for Client will contain certificate of the server.
+```bash
+ keytool -importkeystore -srckeystore server-certificate.p12 -destkeystore CLIENTTRUSTSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass passwordOfP12ServerCert -deststorepass passwordOfTrustStore -srcalias CAserver -destalias CAserver
+```
+if you have the CA else:
+
+```bash
+ keytool -importkeystore -srckeystore client-certificate.p12 -destkeystore SERVERTRUSTSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass 1234 -deststorepass 123456
+```
+
+
+* Step 4. Make a keystore and truststore for SERVER:
+
+Keystore for server
+```bash
+keytool -importkeystore -srckeystore server-certificate.p12 -destkeystore SERVERKEYSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass p12Password -deststorepass keystorePassword -destkeypass confirmKeyStorePassword
+```
+TrustStore for server will contain certificate of the client.
+```bash
+ keytool -importkeystore -srckeystore server-certificate.p12 -destkeystore CLIENTTRUSTSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass passwordOfP12ServerCert -deststorepass passwordOfTrustStore -srcalias CAserver -destalias CAserver
+```
+if you have the CA else:
+
+```bash
+ keytool -importkeystore -srckeystore client-certificate.p12 -destkeystore SERVERTRUSTSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass 1234 -deststorepass 123456
+```
+    

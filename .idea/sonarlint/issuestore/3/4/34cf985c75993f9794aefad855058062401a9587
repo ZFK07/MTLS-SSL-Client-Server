@@ -1,0 +1,19 @@
+
+g
+java:S2095<"JUse try-with-resources or close this "ServerSocket" in a "finally" clause.(îíŸÍ8‹ã–Ü0
+o
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(Çµí‘8‹ã–Ü0
+a
+java:S2147S"DCombine this catch with the one at line 81, which has the same body.(ÒåÒÆ8‹ã–Ü0
+`
+java:S2147U"DCombine this catch with the one at line 81, which has the same body.(ÿÒ„p8‹ã–Ü0
+f
+java:S2147W"DCombine this catch with the one at line 81, which has the same body.(ÀŸÕ›ûÿÿÿÿ8‹ã–Ü0
+a
+java:S2147Y"DCombine this catch with the one at line 81, which has the same body.(§ãä8‹ã–Ü0
+f
+java:S2147["DCombine this catch with the one at line 81, which has the same body.(ÖÁœğøÿÿÿÿ8‹ã–Ü0
+f
+java:S2147]"DCombine this catch with the one at line 81, which has the same body.(üû’äúÿÿÿÿ8‹ã–Ü0
+E
+java:S1659E"(Declare "outputLine" on a separate line.(ìáâÁ8‹ã–Ü0

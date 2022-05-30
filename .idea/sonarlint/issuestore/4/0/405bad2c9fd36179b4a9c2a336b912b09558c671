@@ -1,0 +1,19 @@
+
+f
+java:S20957"DUse try-with-resources or close this "Socket" in a "finally" clause.(„®…ºüÿÿÿÿ8„¼šÜ0
+o
+java:S3776"RRefactor this method to reduce its Cognitive Complexity from 20 to the 15 allowed.(Çµí‘8“¼šÜ0
+a
+java:S2147P"DCombine this catch with the one at line 78, which has the same body.(ÒåÒÆ8“¼šÜ0
+`
+java:S2147R"DCombine this catch with the one at line 78, which has the same body.(ÿÒ„p8“¼šÜ0
+f
+java:S2147T"DCombine this catch with the one at line 78, which has the same body.(ÀŸÕ›ûÿÿÿÿ8“¼šÜ0
+a
+java:S2147V"DCombine this catch with the one at line 78, which has the same body.(§ãä8“¼šÜ0
+f
+java:S2147X"DCombine this catch with the one at line 78, which has the same body.(ÖÁœğøÿÿÿÿ8“¼šÜ0
+f
+java:S2147Z"DCombine this catch with the one at line 78, which has the same body.(üû’äúÿÿÿÿ8“¼šÜ0
+U	java:S106D"9Replace this use of System.out or System.err by a logger.(‰•ºø8“¼šÜ0
+Z	java:S106J"9Replace this use of System.out or System.err by a logger.(©Ø¬šıÿÿÿÿ8“¼šÜ0

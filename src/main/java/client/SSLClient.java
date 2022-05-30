@@ -13,16 +13,18 @@ public class SSLClient {
     public static void main(String[] args){
         try {
             System.setProperty("javax.net.debug", "all");
-            KeyStore keyStore = KeyStore.getInstance("PKCS12");
-            String password = "aabbcc";
-            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("client/certificate-client.p12");
+            KeyStore keyStore = KeyStore.getInstance("JKS");
+            String password = "123456";
+            //Change this to this.getClass.getResourceAsStream() to avoid any issue
+            InputStream inputStream = ClassLoader.getSystemClassLoader().getResourceAsStream("client/CLIENTKEYSTORE.jks");
             keyStore.load(inputStream, password.toCharArray());
 
             // TrustManagerFactory ()
-            KeyStore trustStore = KeyStore.getInstance("PKCS12");
-            String password2 = "abcdefg";
+            KeyStore trustStore = KeyStore.getInstance("JKS");
+            String password2 = "123456";
             TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("PKIX", "SunJSSE");
-            InputStream inputStream1 = ClassLoader.getSystemClassLoader().getResourceAsStream("server/certificate-server.p12");
+            //Change this to this.getClass.getResourceAsStream() to avoid any issue
+            InputStream inputStream1 = ClassLoader.getSystemClassLoader().getResourceAsStream("client/CLIENTTRUSTSTORE.jks");
             trustStore.load(inputStream1, password2.toCharArray());
             trustManagerFactory.init(trustStore);
             X509TrustManager x509TrustManager = null;
