@@ -55,7 +55,7 @@ Step 1. Create a private key and public certificate for the client & server by O
 openssl req -newkey rsa:2048 -nodes -keyout clientprivatekey.pem -x509 -days 365 -out clientpubliccert.pem
 ```
 
-**SERVER:**
+###### **SERVER:**
 
 ```bash
 openssl req -newkey rsa:2048 -nodes -keyout serverprivatekey.pem -x509 -days 365 -out serverpubliccert.pem
@@ -73,9 +73,11 @@ Common Name (e.g. server FQDN or YOUR name) []:
 Email Address []:
 ```
 
-```
-* Step 2. Combine the private key and public certificate into `PCKS12(P12)` format for client and server respectively.
 
+
+Step 2. Combine the private key and public certificate into `PCKS12(P12)` format for client and server respectively.
+
+```
 ```bash
 openssl pkcs12 -inkey clientprivatekey.pem -in clientpubliccert.pem -export -out client-certificate.p12
 ```
@@ -84,17 +86,22 @@ openssl pkcs12 -inkey clientprivatekey.pem -in clientpubliccert.pem -export -out
 openssl pkcs12 -inkey server-key.pem -in server-certificate.pem -export -out server-certificate.p12
 ```
 
-* * It will ask for the password for `p12` format which is bascially for integratity:
+It will ask for the password for `p12` format which is basically for integrity check enter the password:
 
 ```
 Enter Export Password:
 Verifying - Enter Export Password:
 ```
 
-* Step 3. Place `client-certificate.p12` and `server-certificate.p12` into `keystore` and `trustStore` location.
 
-  ![client-server](img/client-server.jpg)
-* Step 4. Make a keystore and truststore for client:
+
+Step 3. Place `client-certificate.p12` and `server-certificate.p12` into `keystore` and `trustStore` location.
+
+![client-server](img/client-server.jpg)
+
+
+
+Step 4. Make Keystorere and truststore for client:
 
 Keystore for client
 
@@ -114,7 +121,9 @@ if you have the CA else:
 keytool -importkeystore -srckeystore client-certificate.p12 -destkeystore SERVERTRUSTSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass 1234 -deststorepass 123456
 ```
 
-* Step 4. Make a keystore and truststore for SERVER:
+
+
+Step 4. Make a Keystore and truststore for SERVER:
 
 Keystore for server
 
@@ -122,7 +131,7 @@ Keystore for server
 keytool -importkeystore -srckeystore server-certificate.p12 -destkeystore SERVERKEYSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass p12Password -deststorepass keystorePassword -destkeypass confirmKeyStorePassword
 ```
 
-TrustStore for server will contain certificate of the client.
+TrustStore for the server will contain a certificate of the client.
 
 ```bash
 keytool -importkeystore -srckeystore server-certificate.p12 -destkeystore CLIENTTRUSTSTORE.jks -srcstoretype PKCS12 -deststoretype jks -srcstorepass passwordOfP12ServerCert -deststorepass passwordOfTrustStore -srcalias CAserver -destalias CAserver
