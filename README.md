@@ -2,20 +2,18 @@
 
 ### 1. What is the role of the public key and private key?
 
-* Public key is used to encrypt information.
-* Private key is used to decrypt information.
+1. The public key is used to encrypt information.
+1. Private key is used to decrypt information.
 
 ### 2. What is the difference between Digital Signature and Encryption?
 
-* When encrypting, you(client) use their public key to write a message, and they(server) use their private key to decrypt
-  to read it.
-* When signing, you(client) use your own private key to write the message’s signature, and they(server) use your public key
-  to verify if the message is yours.
+1. When encrypting, you(client) use their public key to write a message, and they(server) use their private key to decrypt to read it.
+1. When signing, you(client) use your own private key to write the message’s signature, and they(server) use your public key to verify if the message is yours.
 
 ### 3. What is the difference between Keystore and Truststore?
 
-* A Keystore has certs and keys in it and defines what is going to be presented to the other end of a connection.
-* A truststore has just certs in it and defines what certs that the other end will send are to be trusted.
+1. A Keystore has certs and keys in it and defines what is going to be presented to the other end of a connection.
+1. A truststore has just certs in it and defines what certs that the other end will send are to be trusted.
 
 ### 4. What is the standard handshake for SSL/TSL Process?
 
